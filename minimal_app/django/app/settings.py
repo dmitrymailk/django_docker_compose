@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 3rd party
+    "rest_framework",
+    # local
+    "views_counter",
 ]
 
 MIDDLEWARE = [
@@ -130,4 +134,11 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-DOMAIN_URL = os.environ.get("DOMAIN_URL", "http://localhost:8000/")
+DOMAIN_URL = os.environ.get("DOMAIN_URL", "http://localhost:8001/")
+
+# new
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
+}
