@@ -1,0 +1,9 @@
+{
+	"name": "server container",
+	"dockerComposeFile": ["../docker-compose.yml"],
+	"service": "server",
+	"shutdownAction": "none",
+	"extensions": [],
+	// Open the sub-folder with the source code
+	"workspaceFolder": "/code"
+}

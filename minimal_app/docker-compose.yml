@@ -21,9 +21,9 @@ services:
       - db_volume:/var/lib/postgresql/data
       - ./database/pg_hba.conf:/etc/pg_hba.conf
       - ./database/postgresql.conf:/etc/postgresql.conf
-  web:
+  server:
     build: ./django/
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8001
     volumes:
       - ./django:/code
     ports:
@@ -38,6 +38,14 @@ services:
       - DEBUG=1
     depends_on:
       - db
+  frontend:
+    build: ./frontend/
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "80:80"
+    depends_on:
+      - server
       
 volumes:
   db_volume:
