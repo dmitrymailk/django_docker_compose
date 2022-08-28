@@ -1,4 +1,4 @@
-### Django 4.10, postgres:14.1
+### Django 4.10, postgres:14.1, vue 3
 
 #### [Quickstart: Compose and Django](https://docs.docker.com/samples/django/)
 
