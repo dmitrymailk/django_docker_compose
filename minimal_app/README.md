@@ -8,3 +8,7 @@ docker-compose run web django-admin startproject app .
 
 - [development in django in docker container](https://youtu.be/ruIoLtqIdNc)
 - [development in django in docker container - github repo](https://github.com/luabud/petgram/tree/main/.devcontainer)
+- [enable django cors](https://www.stackhawk.com/blog/django-cors-guide/)
+- [django apis book](https://github.com/wsvincent/restapiswithdjango)
+- [django rest framework APIView](https://www.django-rest-framework.org/tutorial/3-class-based-views/)
+- [django ultimate learning resourse](https://learndjango.com/)
