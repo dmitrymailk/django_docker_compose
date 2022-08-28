@@ -26,8 +26,8 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./django:/code
-    ports:
-      - "8000:8000"
+    # ports:
+      - "8001:8001"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres

@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 FROM python:3.10.0-slim-buster
 
 ENV PYTHONDONTWRITEBYTECODE=1
