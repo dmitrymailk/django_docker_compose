@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage("Clone repo") {
-            git url: "https://github.com/dmitrymailk/django_docker_compose.git"
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/dmitrymailk/django_docker_compose.git'
+            }
         }
 
         stage('Build') {
