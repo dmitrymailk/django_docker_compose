@@ -1,6 +1,23 @@
 pipeline {
     agent any
 
+    stage('verify tooling') {
+        steps {
+            sh '''
+          docker version
+          docker info
+          docker compose version
+          curl --version
+        '''
+        }
+    }
+
+    stage('Prune Docker data') {
+        steps {
+            sh 'docker system prune -a --volumes -f'
+        }
+    }
+
     stages {
         stage('Clone repo') {
             steps {
@@ -10,7 +27,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building..'
+                dir('minimal_app') {
+                    sh 'docker-compose up -d'
+                    sh 'docker-compose ps'
+                }
             }
         }
         stage('Test') {
@@ -21,6 +41,15 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+            }
+        }
+    }
+
+    post {
+        always {
+            dir('minimal_app') {
+                sh 'docker-compose down --remove-orphans -v'
+                sh 'docker-compose ps'
             }
         }
     }
