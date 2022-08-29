@@ -45,12 +45,12 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            dir('minimal_app') {
-                sh 'docker-compose down --remove-orphans -v'
-                sh 'docker-compose ps'
-            }
-        }
-    }
+    // post {
+    //     always {
+    //         dir('minimal_app') {
+    //             sh 'docker-compose down --remove-orphans -v'
+    //             sh 'docker-compose ps'
+    //         }
+    //     }
+    // }
 }
