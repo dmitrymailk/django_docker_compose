@@ -34,7 +34,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_PORT=5432
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 195.14.48.196 192.168.120.25
       - DEBUG=1
     depends_on:
       - db
