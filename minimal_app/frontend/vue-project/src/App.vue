@@ -12,7 +12,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
@@ -20,7 +19,10 @@ export default {
     }
   },
   async mounted() {
-    const counter = await axios.get("http://localhost:8001/api/views-counter/")
+    const domain = import.meta.env.VITE_DOMAIN 
+    console.log(domain);
+  
+    const counter = await axios.get(`${domain}/api/views-counter/`)
     console.log(counter.data.my_count);
     this.views = counter.data.my_count;
   }

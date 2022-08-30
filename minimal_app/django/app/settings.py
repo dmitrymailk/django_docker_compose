@@ -146,4 +146,4 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = ["https://*", "http://*"]
-CORS_ALLOWED_ORIGIN_REGEXES = ["https:\/\/*", "http:\/\/.*"]
+CORS_ALLOWED_ORIGIN_REGEXES = ["https:\/\/*", "http:\/\/.*", "195.14.48.196"]
