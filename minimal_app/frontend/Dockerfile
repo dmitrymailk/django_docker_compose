@@ -2,7 +2,7 @@ FROM node:16.0.0-alpine as build-stage
 WORKDIR /app
 COPY ./vue-project ./
 RUN npm install
-RUN npm run build
+RUN npm run prod
 
 FROM nginx:stable-alpine as production-stage
 RUN file="$(ls )" && echo $file
