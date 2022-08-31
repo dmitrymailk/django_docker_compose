@@ -8,41 +8,35 @@ pipeline {
             docker version
             docker info
             docker compose version
-            curl --version
+            ls
             '''
             }
         }
 
-        stage('Prune Docker data') {
-            steps {
-                sh 'docker system prune -a --volumes -f'
-            }
-        }
+        // stage('Clone repo') {
+        //     steps {
+        //         git url: 'https://github.com/dmitrymailk/django_docker_compose.git'
+        //     }
+        // }
 
-        stage('Clone repo') {
-            steps {
-                git url: 'https://github.com/dmitrymailk/django_docker_compose.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                dir('minimal_app') {
-                    sh 'docker-compose up -d --build'
-                    sh 'docker-compose ps'
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         dir('minimal_app') {
+        //             sh 'docker-compose up -d --build'
+        //             sh 'docker-compose ps'
+        //         }
+        //     }
+        // }
+        // stage('Test') {
+        //     steps {
+        //         echo 'Testing..'
+        //     }
+        // }
+        // stage('Deploy') {
+        //     steps {
+        //         echo 'Deploying....'
+        //     }
+        // }
     }
 
     // post {
