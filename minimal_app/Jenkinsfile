@@ -22,7 +22,7 @@ pipeline {
             steps {
                 dir('minimal_app') {
                     sh 'docker-compose -f docker-compose.prod.yml up --build -d'
-                    sh 'docker-compose -f docker-compose.prod.yml up ps'
+                    sh 'docker-compose -f docker-compose.prod.yml ps'
                 }
             }
         }
