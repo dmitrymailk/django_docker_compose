@@ -20,3 +20,5 @@ docker-compose exec db pg_dumpall -c -U postgres > dump_`date +%d-%m-%Y"_"%H_%M_
 
 ### Restore your databases
 cat dump_01-09-2022_01_22_31.sql | docker-compose exec -T db psql -U postgres
+
+### test
