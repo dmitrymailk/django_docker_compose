@@ -8,6 +8,7 @@ pipeline {
             docker version
             docker info
             docker compose version
+            git log -1 --pretty=format:'%h'
             '''
             }
         }
@@ -38,7 +39,7 @@ pipeline {
         stage('Backup database') {
             steps {
                 dir('minimal_app') {
-                    sh 'python utils/database_backup.py'
+                    sh 'python ./utils/database_backup.py'
                 }
             }
         }
