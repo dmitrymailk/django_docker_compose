@@ -72,3 +72,8 @@ aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp test-dump s3://postgre
 ```
 
 aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp dump_01-09-2022_01_22_31.sql s3://postgre-backups/dump_01-09-2022_01_22_31.sql
+
+### Запушить тег на удаленный репозиторий
+```bash
+git push origin tag_name
+```

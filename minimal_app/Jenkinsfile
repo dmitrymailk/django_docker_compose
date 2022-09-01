@@ -40,13 +40,13 @@ pipeline {
                 dir('minimal_app') {
                     // почему-то не работает если запускать через python код
                     // хотя если запустить просто через консоль, то работает
-                    // sh 'python ./utils/database_backup.py'
-                    sh 'LAST_COMMIT=$(git log -1 --pretty=format:"%h")'
-                    sh 'LAST_TAG=$(git describe --tags --abbrev=0)'
-                    sh 'CURRENT_DATE=$(date +%d-%m-%Y_%H_%M_%S)'
-                    sh 'BACKUP_NAME=${LAST_COMMIT}_${LAST_TAG}_${CURRENT_DATE}.sql'
-                    sh 'docker-compose -f docker-compose.prod.yml exec db pg_dumpall -c -U postgres > ${BACKUP_NAME}'
-                    sh 'aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp ${BACKUP_NAME} s3://postgre-backups/${BACKUP_NAME}'
+                    sh 'python ./utils/database_backup.py'
+                    // sh 'LAST_COMMIT=$(git log -1 --pretty=format:"%h")'
+                    // sh 'LAST_TAG=$(git describe --tags --abbrev=0)'
+                    // sh 'CURRENT_DATE=$(date +%d-%m-%Y_%H_%M_%S)'
+                    // sh 'BACKUP_NAME=${LAST_COMMIT}_${LAST_TAG}_${CURRENT_DATE}.sql'
+                    // sh 'docker-compose -f docker-compose.prod.yml exec db pg_dumpall -c -U postgres > ${BACKUP_NAME}'
+                    // sh 'aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp ${BACKUP_NAME} s3://postgre-backups/${BACKUP_NAME}'
                 }
             }
         }
