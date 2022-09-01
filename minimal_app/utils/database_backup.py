@@ -48,6 +48,8 @@ database_backup_id = f"{last_tag}__{last_commit}__{current_date}.sql"
 
 database_backup_cmd = [
     "docker-compose",
+    "-f",
+    "docker-compose.prod.yml",
     "exec",
     "db",
     "pg_dumpall",

@@ -17,6 +17,9 @@ docker-compose run web django-admin startproject app .
 ```bash
 docker-compose exec db pg_dumpall -c -U postgres > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
 ```
+```bash
+docker-compose -f docker-compose.prod.yml exec db pg_dumpall -c -U postgres > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+```
 
 ### запустить docker-compose из файла в фоне, с полным ребилдом
 ```bash
@@ -46,7 +49,7 @@ git describe --tags --abbrev=0
 
 ### выполнить миграции в django
 ```bash
-docker-compose exec server python manage.py migrate
+docker-compose run server python manage.py migrate
 ```
 
 ### начать конфигурацию s3
