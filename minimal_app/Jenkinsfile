@@ -8,44 +8,47 @@ pipeline {
             docker version
             docker info
             docker compose version
-            ls
-            pwd
             '''
             }
         }
 
-        // stage('Clone repo') {
-        //     steps {
-        //         git url: 'https://github.com/dmitrymailk/django_docker_compose.git'
-        //     }
-        // }
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/dmitrymailk/django_docker_compose.git'
+            }
+        }
 
-        // stage('Build') {
-        //     steps {
-        //         dir('minimal_app') {
-        //             sh 'docker-compose up -d --build'
-        //             sh 'docker-compose ps'
-        //         }
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         echo 'Testing..'
-        //     }
-        // }
-        // stage('Deploy') {
-        //     steps {
-        //         echo 'Deploying....'
-        //     }
-        // }
+        stage('Run docker-compose') {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml up --build -d'
+                    sh 'docker-compose -f docker-compose.prod.yml up ps'
+                }
+            }
+        }
+
+        stage("Make migrate") {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml run server python manage.py migrate'
+                }
+            }
+        }
+        
+        stage('Backup database') {
+            steps {
+                dir('minimal_app') {
+                    sh 'python utils/database_backup.py'
+                }
+            }
+        }
+
+        stage('Run django server') {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml run server python manage.py runserver'
+                }
+            }
+        }
     }
-
-    // post {
-    //     always {
-    //         dir('minimal_app') {
-    //             sh 'docker-compose down --remove-orphans -v'
-    //             sh 'docker-compose ps'
-    //         }
-    //     }
-    // }
 }
