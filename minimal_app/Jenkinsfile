@@ -35,11 +35,12 @@ pipeline {
             }
         }
         
+        environment {
+            AWS_DEFAULT_REGION = 'ru-central1'
+        }
+        
         stage('Backup database') {
             steps {
-                environment {
-                    AWS_DEFAULT_REGION = 'ru-central1'
-                }
 
                 dir('minimal_app') {
                     // почему-то не работает если запускать через python код
