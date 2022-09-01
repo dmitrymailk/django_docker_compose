@@ -51,6 +51,7 @@ database_backup_cmd = [
     "-f",
     "docker-compose.prod.yml",
     "exec",
+    "-T",
     "db",
     "pg_dumpall",
     "-c",
