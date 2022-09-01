@@ -27,3 +27,40 @@ cat dump_01-09-2022_01_22_31.sql | docker-compose exec -T db psql -U postgres
 ```bash
 git tag -l --sort=-creatordate --format='%(refname:short)'
 ```
+
+### вывести короткий хеш последнего коммита
+
+```bash
+git log -1 --pretty=format:'%h'
+```
+
+### вывести последний тег
+```bash
+git describe --tags --abbrev=0
+```
+
+### выполнить миграции в django
+```bash
+docker-compose exec server python manage.py migrate
+```
+
+### начать конфигурацию s3
+```bash
+aws configure
+```
+
+### Подключение к хранилищу S3 в yandex через aws cli
+- https://cloud.yandex.ru/docs/datasphere/operations/data/connect-to-s3
+```text
+AWS Access Key ID - это Идентификатор ключа
+AWS Secret Access Key - это Ваш секретный ключ
+Default region name [None] - это ru-central1, другой может не сработать
+Default output format [None] - просто enter нажать
+```
+
+### Загрузить объект в s3
+```bash
+aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp test-dump s3://postgre-backups/test-dump
+```
+
+aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp dump_01-09-2022_01_22_31.sql s3://postgre-backups/dump_01-09-2022_01_22_31.sql
