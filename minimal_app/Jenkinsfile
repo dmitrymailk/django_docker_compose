@@ -39,6 +39,7 @@ pipeline {
             steps {
                 dir('minimal_app') {
                     // почему-то не работает если запускать через python код
+                    // хотя если запустить просто через консоль, то работает
                     // sh 'python ./utils/database_backup.py'
                     sh 'LAST_COMMIT=$(git log -1 --pretty=format:"%h")'
                     sh 'LAST_TAG=$(git describe --tags --abbrev=0)'
