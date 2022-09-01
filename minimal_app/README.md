@@ -77,3 +77,9 @@ aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp dump_01-09-2022_01_22_
 ```bash
 git push origin tag_name
 ```
+
+### Ошибка с доступом к docker у jenkins
+- Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/version": dial unix /var/run/docker.sock: connect: permission denied
+```bash
+sudo usermod -a -G docker jenkins
+```
