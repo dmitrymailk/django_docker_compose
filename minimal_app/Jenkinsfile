@@ -39,8 +39,6 @@ pipeline {
             steps {
 
                 dir('minimal_app') {
-                    // почему-то не работает если запускать через python код
-                    // хотя если запустить просто через консоль, то работает
                     withCredentials([aws(
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', 
@@ -48,22 +46,8 @@ pipeline {
                         sh 'AWS_DEFAULT_REGION=ru-central1'
                         sh 'python ./utils/database_backup.py'
                     }
-                    // sh 'LAST_COMMIT=$(git log -1 --pretty=format:"%h")'
-                    // sh 'LAST_TAG=$(git describe --tags --abbrev=0)'
-                    // sh 'CURRENT_DATE=$(date +%d-%m-%Y_%H_%M_%S)'
-                    // sh 'BACKUP_NAME=${LAST_COMMIT}_${LAST_TAG}_${CURRENT_DATE}.sql'
-                    // sh 'docker-compose -f docker-compose.prod.yml exec db pg_dumpall -c -U postgres > ${BACKUP_NAME}'
-                    // sh 'aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp ${BACKUP_NAME} s3://postgre-backups/${BACKUP_NAME}'
                 }
             }
         }
-
-        // stage('Run django server') {
-        //     steps {
-        //         dir('minimal_app') {
-        //             sh 'docker-compose -f docker-compose.prod.yml run server python manage.py runserver 0.0.0.0:8001 &'
-        //         }
-        //     }
-        // }
     }
 }
