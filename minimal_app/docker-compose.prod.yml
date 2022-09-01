@@ -24,6 +24,7 @@ services:
       - ./database/postgresql.conf:/etc/postgresql.conf
   server:
     build: ./django/
+    command: python manage.py runserver 0.0.0.0:8001
     volumes:
       - ./django:/code
     ports:
@@ -35,7 +36,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_PORT=5432
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 195.14.48.196 192.168.120.25
-      - DEBUG=1
+      - DEBUG=0
     depends_on:
       - db
   frontend:

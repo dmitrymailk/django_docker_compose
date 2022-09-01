@@ -58,12 +58,12 @@ pipeline {
             }
         }
 
-        stage('Run django server') {
-            steps {
-                dir('minimal_app') {
-                    sh 'docker-compose -f docker-compose.prod.yml run server python manage.py runserver 0.0.0.0:8001 &'
-                }
-            }
-        }
+        // stage('Run django server') {
+        //     steps {
+        //         dir('minimal_app') {
+        //             sh 'docker-compose -f docker-compose.prod.yml run server python manage.py runserver 0.0.0.0:8001 &'
+        //         }
+        //     }
+        // }
     }
 }
