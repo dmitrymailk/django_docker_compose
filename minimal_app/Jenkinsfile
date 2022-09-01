@@ -35,10 +35,6 @@ pipeline {
             }
         }
         
-        environment {
-            AWS_DEFAULT_REGION = 'ru-central1'
-        }
-        
         stage('Backup database') {
             steps {
 
@@ -49,6 +45,7 @@ pipeline {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', 
                         credentialsId: 'aws-s3-yandex')]) {
+                        sh 'AWS_DEFAULT_REGION=ru-central1'
                         sh 'python ./utils/database_backup.py'
                     }
                     // sh 'LAST_COMMIT=$(git log -1 --pretty=format:"%h")'
