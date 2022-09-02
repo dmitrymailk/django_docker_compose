@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-def run_command(command):
+def run_command(command, replace_newline=True):
     """
     Run a command and return the output and error code.
     """
@@ -16,7 +16,8 @@ def run_command(command):
         print(error.decode("utf-8"))
         exit(1)
     output = output.decode("utf-8")
-    output = output.strip().replace("\n", "")
+    if replace_newline:
+        output = output.strip().replace("\n", "")
     return output
 
 
@@ -59,7 +60,7 @@ database_backup_cmd = [
     "postgres",
 ]
 
-out = run_command(database_backup_cmd)
+out = run_command(database_backup_cmd, replace_newline=False)
 database_backup = open(database_backup_id, "w")
 database_backup.write(out)
 database_backup.close()
