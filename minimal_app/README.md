@@ -31,8 +31,9 @@ docker-compose -f docker-compose.prod.yml up --build -d
 cat dump_01-09-2022_01_22_31.sql | docker-compose exec -T db psql -U postgres
 ```
 ```bash
-cat dump_01-09-2022_01_22_31.sql | docker-compose -f docker-compose.prod.yml exec -T db psql -U postgres
+cat dump_01-09-2022_01_22_31.sql | docker-compose -f docker-compose.prod.yml exec -T db psql --quiet -U postgres
 ```
+
 
 ### вывести теги в хронологическом порядке(по убыванию даты)
 ```bash
