@@ -5,10 +5,9 @@ pipeline {
         stage('verify tooling') {
             steps {
                 sh '''
-            docker version
-            docker info
-            docker compose version
-            '''
+                echo $BACKUP_ID
+                echo $COMMIT_ID
+                '''
             }
         }
     }
