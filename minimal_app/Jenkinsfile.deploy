@@ -27,25 +27,24 @@ pipeline {
             }
         }
 
-        stage("Make migrate") {
+        stage('Make migrate') {
             steps {
                 dir('minimal_app') {
                     sh 'docker-compose -f docker-compose.prod.yml run server python manage.py migrate'
                 }
             }
         }
-        
+
         stage('Backup database') {
             steps {
-
                 dir('minimal_app') {
                     withCredentials([aws(
-                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', 
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                         credentialsId: 'aws-s3-yandex')]) {
                         sh 'AWS_DEFAULT_REGION=ru-central1'
                         sh 'python ./utils/database_backup.py'
-                    }
+                        }
                 }
             }
         }
