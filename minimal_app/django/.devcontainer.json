@@ -1,6 +1,6 @@
 {
 	"name": "server container",
-	"dockerComposeFile": ["../docker-compose.yml"],
+	"dockerComposeFile": ["../docker-compose.dev.yml"],
 	"service": "server",
 	"shutdownAction": "none",
 	"extensions": [],
