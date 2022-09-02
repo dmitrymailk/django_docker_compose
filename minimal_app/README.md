@@ -30,6 +30,9 @@ docker-compose -f docker-compose.prod.yml up --build -d
 ```bash
 cat dump_01-09-2022_01_22_31.sql | docker-compose exec -T db psql -U postgres
 ```
+```bash
+cat dump_01-09-2022_01_22_31.sql | docker-compose -f docker-compose.prod.yml exec -T db psql -U postgres
+```
 
 ### вывести теги в хронологическом порядке(по убыванию даты)
 ```bash
@@ -72,6 +75,11 @@ aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp test-dump s3://postgre
 ```
 
 aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp dump_01-09-2022_01_22_31.sql s3://postgre-backups/dump_01-09-2022_01_22_31.sql
+
+### скачать файл из yandex s3
+```bash
+aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp s3://postgre-backups/v0.0.2__524af41__02-09-2022_13_47_15.sql v0.0.2__524af41__02-09-2022_13_47_15.sql
+```
 
 ### Запушить тег на удаленный репозиторий
 ```bash

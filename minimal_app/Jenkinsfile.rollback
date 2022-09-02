@@ -10,5 +10,69 @@ pipeline {
                 '''
             }
         }
+
+        stage('Backup current database') {
+            steps {
+
+                dir('minimal_app') {
+                    withCredentials([aws(
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', 
+                        credentialsId: 'aws-s3-yandex')]) {
+                        sh 'AWS_DEFAULT_REGION=ru-central1'
+                        sh 'python ./utils/database_rollback_backup.py'
+                    }
+                }
+            }
+        }
+
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/dmitrymailk/django_docker_compose.git'
+                sh '''
+                git checkout $COMMIT_ID
+                '''
+            }
+        }
+
+        stage('remove db docker volume') {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml down'
+                    sh 'docker volume rm minimal_app_db_volume'
+                }
+            }
+        }
+
+        stage('Run docker-compose') {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml up --build -d'
+                    sh 'docker-compose -f docker-compose.prod.yml ps'
+                }
+            }
+        }
+
+        stage("Restore database") {
+            steps {
+                dir('minimal_app') {
+                    withCredentials([aws(
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', 
+                        credentialsId: 'aws-s3-yandex')]) {
+                        sh 'AWS_DEFAULT_REGION=ru-central1'
+                        sh 'python ./utils/database_rollback.py'
+                    }
+                }
+            }
+        }
+
+        stage("Make migrate") {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml run server python manage.py migrate'
+                }
+            }
+        }
     }
 }
