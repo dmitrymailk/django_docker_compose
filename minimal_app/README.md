@@ -1,5 +1,18 @@
 ### Django 4.10, postgres:14.1, vue 3
 
+### TODO
+- [x] возможность автоматического развертывания по нажатию кпонки build
+- [x] возможность отката проекта по хешу коммита на гитхабе и названию бекапа БД
+- [x] бекап базы данных при каждом билде
+- [ ] прогон тестов при каждом билде(например можем ли мы зарегаться, авторизоваться, создать пост и т.д.)
+- [ ] поменять production сервер на django с python manage.py runserver на gunicorn
+- [ ] выполнять бекап базы данных переодически(например раз в неделю)
+- [ ] вероятно вынести фронтенд и бекенд в отдельные репозитории
+- [ ] настроить сжатие бакапа базы данных, включить параллельную его загрузку в базу
+- [ ] сохранить текущие настройки jenkins as code
+- [ ] запустить зеркало на gitea, чтобы не вышло как с deeppavlov
+- [ ] научиться деплоить в cubernetes...
+
 #### [Quickstart: Compose and Django](https://docs.docker.com/samples/django/)
 
 ```text
@@ -60,6 +73,10 @@ docker-compose run server python manage.py migrate
 ```bash
 aws configure
 ```
+
+### добавить aws credentials в jenkins
+- [jenkins aws credentials](https://youtu.be/iiF2iQV-3eM)
+- автогенерация кода для доступа к s3 в яндекс не работает, придется перепечатывать как на видео. но по итогу оно работает
 
 ### Подключение к хранилищу S3 в yandex через aws cli
 - https://cloud.yandex.ru/docs/datasphere/operations/data/connect-to-s3
