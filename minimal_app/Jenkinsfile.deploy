@@ -27,14 +27,6 @@ pipeline {
             }
         }
 
-        stage('Make migrate') {
-            steps {
-                dir('minimal_app') {
-                    sh 'docker-compose -f docker-compose.prod.yml run server python manage.py migrate'
-                }
-            }
-        }
-
         stage('Backup database') {
             steps {
                 dir('minimal_app') {
@@ -45,6 +37,14 @@ pipeline {
                         sh 'AWS_DEFAULT_REGION=ru-central1'
                         sh 'python ./utils/database_backup.py'
                         }
+                }
+            }
+        }
+
+        stage('Make migrate') {
+            steps {
+                dir('minimal_app') {
+                    sh 'docker-compose -f docker-compose.prod.yml run server python manage.py migrate'
                 }
             }
         }
